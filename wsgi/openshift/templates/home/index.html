@@ -4,6 +4,12 @@
 	<title> Things I'm learning everyday </title>
 	<script src="jquery-1.8.3.min.js"></script>
 
+	<script>
+  // Set to false or delete to disable analytics/tracking:
+  TowTruckConfig_enableAnalytics = true;
+</script>
+<script src="https://towtruck.mozillalabs.com/towtruck.js"></script>
+
 	<script type="text/javascript">
 
 			$(document).ready(function(){
@@ -164,6 +170,15 @@
 
 		}
 
+		button#start-towtruck{
+			background-color: #05A44F  ;
+			padding: 10px;
+			border-radius: 4px;
+			color: white;
+			font-size: 140%;
+			margin-left: 90%;
+		}
+
 		body{
 
 			background: #deefff; /* Old browsers */
@@ -183,10 +198,17 @@
 
 <body>
 	<br>
+	<button id="start-towtruck" type="button"
+				 onclick="TowTruck(this); return false"
+				 data-end-towtruck-html="End TowTruck">
+				  Start TowTruck
+				</button>
 	<div id="tweet_space">
-			<font id="name"> My Journal of things I'm tinkering with </font>
+			<font id="name"> My Journal of things I'm tinkering with </font> 
+			&nbsp; 
 			<hr></hr>
-			<br><br>
+				
+<br><br>
 
 			<div id="wait">
 
