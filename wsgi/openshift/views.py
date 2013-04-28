@@ -42,7 +42,7 @@ def parseTweet(twit_data,type_of_tweet):
 		should_i_add_this=decide(tweet)
 
 		if should_i_add_this == True :
-			journal_listing['tweet']=tweet['text']
+			journal_listing['tweet']=tweet_string[3:]
 			journal_listing['date']=tweet['created_at']
 			journal_listing['id']=tweet['id_str']
 
