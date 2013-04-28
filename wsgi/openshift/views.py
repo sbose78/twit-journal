@@ -31,7 +31,7 @@ def parseTweet(twit_data,type_of_tweet):
 		journal_listing ={}
 
 		
-		tweet_string= str(tweet['text'])
+		tweet_string= str(tweet['text'].encode('utf-8'))
 		if tweet_string[:3] != type_of_tweet :
 			continue
 		else:
