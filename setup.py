@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(
-    name='YourAppName',
+    name='twit-parse',
     version='1.0',
     description='OpenShift App',
     author='Your Name',
