@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import json
 import urllib2
-import simplejson as sjson
+#import simplejson as sjson
 
 
 def home(request):
@@ -19,7 +19,7 @@ def get_user_data(request,username):
 
 def getFeed(username,type_of_tweet):
 	twit_data=urllib2.urlopen('https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='+ username+'&count=20')
-	twit_data=sjson.loads(twit_data.read())
+	twit_data=json.loads(twit_data.read())
 	twit_data = parseTweet(twit_data,type_of_tweet)
 	return twit_data
 
