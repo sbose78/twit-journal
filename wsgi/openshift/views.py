@@ -18,7 +18,7 @@ def get_user_data(request,username):
 	return HttpResponse(json.dumps(twit_data),mimetype="application/json")
 
 def getFeed(username,type_of_tweet):
-	twit_data=urllib2.urlopen('https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='+ username+'&count=20')
+	twit_data=urllib2.urlopen('https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name='+ username+'&count=100')
 	twit_data=json.loads(twit_data.read())
 	twit_data = parseTweet(twit_data,type_of_tweet)
 	return twit_data
