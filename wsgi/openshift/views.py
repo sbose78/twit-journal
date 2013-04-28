@@ -30,14 +30,14 @@ def parseTweet(twit_data,type_of_tweet):
 	for tweet in twit_data :
 		journal_listing ={}
 
-		'''
+		
 		tweet_string= str(tweet['text'])
 		if tweet_string[:3] != type_of_tweet :
 			continue
 		else:
 			pass
 		print tweet_string[:3]
-		'''
+		
 
 		should_i_add_this=decide(tweet)
 
@@ -53,7 +53,7 @@ def parseTweet(twit_data,type_of_tweet):
 	return my_tweet
 
 def decide(tweet):
-	if 'www.google.com' not in str(tweet['source']) and tweet['in_reply_to_screen_name'] is None:
+	if 'www.google.com' not in str(tweet['source']) and tweet['in_reply_to_screen_name'] is None: 
 		return True
 	else :
 		return False
