@@ -1,0 +1,210 @@
+<html>
+
+<head>
+	<title> Things I'm learning everyday </title>
+	<script src="jquery-1.8.3.min.js"></script>
+
+	<script type="text/javascript">
+
+			$(document).ready(function(){
+				//alert("hi");
+
+
+				$("div#tweet").live('hover',function(){
+					//alert("hovered");
+				   
+				});
+
+
+				$("div#tweet_space").on("hover", "div.tweet", function(event){
+					// your function
+					//alert($(this).attr("tweet_id"));
+					var all_divs = $("div[tweet_id='"+$(this).attr("tweet_id")+"']");
+					var d1= $(all_divs).find("div[class='tweet_text']");//
+					$(d1).hide();
+					var d2 = $(all_divs).find("div[class='twitter_widget']");//
+					$(d2).show();
+				});
+
+				$('div#tweet_space').on("mouseleave","div.tweet",function() {
+					//alert("called");
+
+					var all_divs = $("div[tweet_id='"+$(this).attr("tweet_id")+"']");
+					var d1= $(all_divs).find("div[class='tweet_text']");//
+					$(d1).show();
+					var d2 = $(all_divs).find("div[class='twitter_widget']");//
+					$(d2).hide();
+				});	
+
+
+				getUserData('sbose78')
+			});
+
+			function getUserData(search_key)
+			{
+				var finalUrl='/user/'+search_key;
+				var req=$.ajax({
+					type:"GET",
+					url:finalUrl,
+					dataType:"JSON",
+				
+					success: function(results_array){
+						$("div#wait").empty();
+						plantDataInPage(results_array)				
+					},
+				
+					complete:function(jqXHR, textStatus) {
+					//alert("request complete "+textStatus);
+					},
+					error: function(xhr, textStatus, errorThrown){
+					}
+				});
+			}
+
+			function plantDataInPage(results_array){
+				journal_section = $("div#tweet_space");
+				for (var i = 0  ; i< results_array.length ; i++) {
+					mytweet = results_array[i];
+
+					var tweet_div = document.createElement("div");
+					$(tweet_div).attr('class','tweet');
+
+					var url= document.createElement("a");
+
+					var twitter_status_url="https://twitter.com/sbose78/status/"+mytweet.id;
+					$(url).attr('href',twitter_status_url);
+
+					var img=document.createElement("img");
+					$(img).attr("src","twitter.jpeg");
+					$(img).attr("width","auto");
+					$(img).attr("height","35px");
+
+					$(url).append(img);
+
+					var tweet_text=document.createElement("div");
+					$(tweet_text).attr("class","tweet_text");
+					$(tweet_text).attr("tweet_id",mytweet.id);
+					$(tweet_text).append(mytweet.tweet);
+
+					$(tweet_div).attr('tweet_id',mytweet.id);
+
+					$(tweet_div).append(url);
+					$(tweet_div).append(tweet_text);
+
+					$(tweet_div).appendTo(journal_section).hide().fadeIn(3000);
+
+					// now add the twitter widget
+
+					var twitter_widget= document.createElement("div");
+					$(twitter_widget).attr("class","twitter_widget");
+					$(twitter_widget).attr("tweet_id",mytweet.id);
+
+
+					var twitter_blockquote = document.createElement("blockquote");
+					$(twitter_blockquote).attr("class","twitter-tweet");
+
+					var twitter_p = document.createElement("p");
+					var twitter_p_text = mytweet.tweet;
+					$(twitter_p).append(twitter_p_text);
+
+					var twitter_url = document.createElement("a");
+					$(twitter_url).attr("href",twitter_status_url)
+
+					var twitter_script = document.createElement("script");
+					$(twitter_script).attr("src","//platform.twitter.com/widgets.js");
+					$(twitter_script).attr("charset","utf-8");
+
+					// start appending
+
+					$(twitter_blockquote).append(twitter_p).append(twitter_url);
+					$(twitter_widget).append(twitter_blockquote).append(twitter_script);
+
+					$(tweet_div).append(twitter_widget);
+
+					$(twitter_widget).hide();
+
+
+					
+
+
+
+/*
+					journal_section.append(tweet_div);
+					$(tweet_div).hide().fadeIn(1000);
+
+					  setTimeout(function () {}, 5000);
+*/
+					
+				}	
+				$('a[href^="https://"]').attr('target','_blank');
+			}
+	</script>
+
+	<style type="text/css">
+		div#tweet_space{
+			padding: 15px;
+			margin-right: auto;
+			margin-left: auto;
+			width: 50%;
+			#background-color: #67AACD;
+		}
+
+		div.tweet{
+			background-color: white;
+			padding: 20px;
+			box-shadow: 5px 5px 5px black;
+			margin-bottom: 15px;
+			font-size: 120%;
+			border-radius: 8px;
+
+		}
+
+		font#name{
+			font-size: 200%;
+
+		}
+
+		body{
+
+			background: #deefff; /* Old browsers */
+			background: -moz-linear-gradient(-45deg, #deefff 0%, #98bede 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#deefff), color-stop(100%,#98bede)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(-45deg, #deefff 0%,#98bede 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(-45deg, #deefff 0%,#98bede 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(-45deg, #deefff 0%,#98bede 100%); /* IE10+ */
+			background: linear-gradient(135deg, #deefff 0%,#98bede 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#deefff',endColorstr='#98bede',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<br>
+	<div id="tweet_space">
+			<font id="name"> My Journal of things I'm tinkering with </font>
+			<hr></hr>
+			<br><br>
+
+			<div id="wait">
+
+				<img src="Loading.gif"/>
+
+			</div>
+
+
+	</div>
+
+<!--
+
+<blockquote class="twitter-tweet"><p>WL: First  use of the Twitter API to parse out tweets depending upon category</p> <a href="https://twitter.com/sbose78/status/328232894801776641"></a></blockquote>
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+-->
+
+</body>
+
+
+</html>
