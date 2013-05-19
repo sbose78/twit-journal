@@ -10,6 +10,11 @@ Hence, this app filters out the nonsense and displays only the sensible stuff on
 my 'journal'. 
 
 
+URL
+----
+
+http://journal.sbose.in
+
 
 What I used
 ------------
